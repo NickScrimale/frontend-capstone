@@ -1,24 +1,31 @@
-import { signOut } from '../utils/auth';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { getBlogs } from '../api/blogData';
+import BlogCard from '../components/BlogCard';
 import { useAuth } from '../utils/context/authContext';
 
 function Home() {
+  const [blogs, setBlogs] = useState([]);
   const { user } = useAuth();
+  const getAllTheBlogs = () => {
+    getBlogs(user.uid).then(setBlogs);
+  };
+  useEffect(() => {
+    getAllTheBlogs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
-    >
-      <h1>Hello {user.displayName}! </h1>
-      <p>Click the button below to logout!</p>
-      <button className="btn btn-danger btn-lg copy-btn" type="button" onClick={signOut}>
-        Sign Out
-      </button>
+    <div className="text-center my-4">
+      <Link href="/blogs/new" passHref>
+        <Button variant="info">Post A Blog</Button>
+      </Link>
+      <div className="d-flex flex-wrap justify-content-center">
+        {blogs.map((blog) => (
+          <BlogCard key={blog.firebaseKey} blogObj={blog} onUpdate={getAllTheBlogs} />
+        ))}
+      </div>
     </div>
   );
 }
