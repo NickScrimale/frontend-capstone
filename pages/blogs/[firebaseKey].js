@@ -1,14 +1,18 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import viewBlogDetails from '../../api/mergedData';
+import { getReply } from '../../api/replyData';
 import ReplyForm from '../../components/forms/ReplyForm';
 
 export default function ViewBlog() {
   const [blogDetails, setBlogDetails] = useState({});
+  const [viewReply, setViewReply] = useState({});
   const router = useRouter();
 
   const { firebaseKey } = router.query;
-
+  useEffect(() => {
+    getReply(firebaseKey).then(setViewReply);
+  }, [firebaseKey]);
   useEffect(() => {
     viewBlogDetails(firebaseKey).then(setBlogDetails);
   }, [firebaseKey]);
@@ -23,7 +27,7 @@ export default function ViewBlog() {
           <hr />
         </div>
       </div>
-      <ReplyForm obj={ViewBlog} />
+      <ReplyForm obj={viewReply} />
     </>
 
   );

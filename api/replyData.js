@@ -3,14 +3,12 @@ import { clientCredentials } from '../utils/client';
 
 const dbUrl = clientCredentials.databaseURL;
 
-const getReply = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/replies.json?orderBy="uid"&equalTo="${uid}"`)
+const getReply = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/replies/${firebaseKey}.json`)
     .then((response) => {
-      if (response.data) {
-        resolve(Object.values(response.data));
-      } else {
-        resolve([]);
-      }
+      // eslint-disable-next-line no-console
+      console.log('data ===', response.data);
+      resolve(response.data);
     })
     .catch((error) => reject(error));
 });
@@ -18,6 +16,12 @@ const getReply = (uid) => new Promise((resolve, reject) => {
 const deleteReply = (firebaseKey) => new Promise((resolve, reject) => {
   axios.delete(`${dbUrl}/replies/${firebaseKey}.json`)
     .then(() => resolve('deleted'))
+    .catch((error) => reject(error));
+});
+
+const getReplyForBlog = (blogFirebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/blogs.json?orderBy="uid"&equalTo="${blogFirebaseKey}"`)
+    .then((response) => resolve(Object.values(response.data)))
     .catch((error) => reject(error));
 });
 
@@ -43,6 +47,7 @@ const updateReply = (replyObj) => new Promise((resolve, reject) => {
 });
 
 export {
+  getReplyForBlog,
   getReply,
   deleteReply,
   getSingleReply,

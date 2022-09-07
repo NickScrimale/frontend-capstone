@@ -1,32 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { Button } from 'bootstrap';
-import { getBlogs } from '../api/blogData';
-import { useAuth } from '../utils/context/authContext';
+// import { Button } from 'react-bootstrap';
+// import { getBlogs } from '../api/blogData';
+// import { useAuth } from '../utils/context/authContext';
 
 export default function NavBar() {
-  const [blogObject, setBlogObject] = useState();
-  const [filteredBlog, setfFlteredBlog] = useState();
-  const { user } = useAuth();
-
-  const getUserBlogs = () => {
-    getBlogs(user.uid).then((resopnse) => {
-      setBlogObject(resopnse);
-      setfFlteredBlog(resopnse);
-    });
-  };
-
-  const handleClick = (e) => {
-    const location = e.target.innerText;
-    filteredBlog?.filter((blogObj) => blogObj.location === location);
-    setBlogObject(filteredBlog);
-  };
-  blogObject();
-  useEffect(() => {
-    getUserBlogs();
-  });
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-dark">
       <div className="container-fluid">
@@ -54,11 +34,6 @@ export default function NavBar() {
               </Link>
             </li>
           </ul>
-        </div>
-        <div>
-          <Button onClick={handleClick}>Link</Button>
-          <Button onClick={handleClick}>Video</Button>
-          <Button onClick={handleClick}>Song</Button>
         </div>
       </div>
     </nav>

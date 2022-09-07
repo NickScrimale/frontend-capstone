@@ -29,5 +29,25 @@ function Home() {
     </div>
   );
 }
+// const [blogObject, setBlogObject] = useState();
+// const [filteredBlog, setfFlteredBlog] = useState();
+// const { user } = useAuth();
+
+// const getUserBlogs = () => {
+//   getBlogs(user.uid).then((resopnse) => {
+//     setBlogObject(resopnse);
+//     setfFlteredBlog(resopnse);
+//   });
+// };
+
+// const handleClick = (e) => {
+//   const location = e.target.innerText;
+//   filteredBlog?.filter((blogObj) => blogObj.location === location);
+//   setBlogObject(filteredBlog);
+// };
+
+// useEffect(() => {
+//   getUserBlogs();
+// });
 
 export default Home;

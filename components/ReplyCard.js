@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import { getReply } from '../api/replyData';
+import User from './User';
 
 export default function ReplyCard({ replyObj }) {
   const [viewReply, setViewReply] = useState({});
@@ -19,6 +20,7 @@ export default function ReplyCard({ replyObj }) {
       {viewReply && viewReply.reply && viewReply.reply.map((reply, idx) => (
         // eslint-disable-next-line react/no-array-index-key
         <Card key={idx} style={{ width: '18rem', margin: '5px' }}>
+          <Card.Header>{User.displayName}</Card.Header>
           <Card.Body>
             <div>{reply}</div>
           </Card.Body>
@@ -27,11 +29,10 @@ export default function ReplyCard({ replyObj }) {
     </div>
   );
 }
-
 ReplyCard.propTypes = {
   replyObj: PropTypes.shape({
-    txt: PropTypes.string,
     firebaseKey: PropTypes.string,
+    txt: PropTypes.string,
     uid: PropTypes.string,
   }).isRequired,
 };
