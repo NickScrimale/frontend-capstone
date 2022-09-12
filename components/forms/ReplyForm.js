@@ -46,7 +46,7 @@ const ReplyForm = ({ object }) => {
     } else {
       const payload = { ...formInput, uid: user.uid };
       createReply(payload).then(() => {
-        router.push(`/reply/${object.firebaseKey}`);
+        router.push('/');
       });
     }
   };

@@ -55,9 +55,10 @@ function BlogForm({ obj }) {
       </FloatingLabel>
       <FloatingLabel>
         <Form.Select name="type" value={formInput.type} onChange={handleChange} required>
-          <option value="url">Link</option>
+          <option value="">Choose a type</option>
+          <option value="link">Link</option>
           <option value="video">Video</option>
-          <option value="song">song</option>
+          <option value="song">Song</option>
         </Form.Select>
       </FloatingLabel>
 

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { getBlogs } from '../api/blogData';
 import BlogCard from '../components/BlogCard';
+import BtnFilter from '../components/FilterBtn';
 import { useAuth } from '../utils/context/authContext';
 
 function Home() {
@@ -21,6 +22,7 @@ function Home() {
       <Link href="/blogs/new" passHref>
         <Button variant="info">Post A Blog</Button>
       </Link>
+      <BtnFilter />
       <div className="d-flex flex-wrap justify-content-center">
         {blogs.map((blog) => (
           <BlogCard key={blog.firebaseKey} blogObj={blog} onUpdate={getAllTheBlogs} />
@@ -32,22 +34,5 @@ function Home() {
 // const [blogObject, setBlogObject] = useState();
 // const [filteredBlog, setfFlteredBlog] = useState();
 // const { user } = useAuth();
-
-// const getUserBlogs = () => {
-//   getBlogs(user.uid).then((resopnse) => {
-//     setBlogObject(resopnse);
-//     setfFlteredBlog(resopnse);
-//   });
-// };
-
-// const handleClick = (e) => {
-//   const location = e.target.innerText;
-//   filteredBlog?.filter((blogObj) => blogObj.location === location);
-//   setBlogObject(filteredBlog);
-// };
-
-// useEffect(() => {
-//   getUserBlogs();
-// });
 
 export default Home;
