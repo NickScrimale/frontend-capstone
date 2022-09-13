@@ -3,8 +3,8 @@ import { clientCredentials } from '../utils/client';
 
 const dbUrl = clientCredentials.databaseURL;
 
-const getBlogs = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/blogs.json?orderBy="uid"&equalTo="${uid}"`)
+const getBlogs = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/blogs.json?`)
     .then((response) => {
       if (response.data) {
         resolve(Object.values(response.data));

@@ -11,20 +11,16 @@ const initialState = {
   txt: '',
 };
 
-const ReplyForm = ({ object }) => {
+const ReplyForm = ({ object, blogFbKey }) => {
   // eslint-disable-next-line no-console
-  console.log('obj value ===', object);
+  // console.log('obj value ===', object);
   const [formInput, setFormInput] = useState(initialState);
-  const [replies, setReplies] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
     if (object.firebaseKey) {
       setFormInput(object);
-      if (object && object?.reply && object?.reply.length) {
-        setReplies(object.reply);
-      }
     }
   }, [object]);
 
@@ -32,21 +28,19 @@ const ReplyForm = ({ object }) => {
     const { value } = e.target;
     setFormInput((prevState) => ({
       ...prevState,
-      reply: replies.concat([value]),
+      reply: (value),
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (object.firebaseKey) {
-      // eslint-disable-next-line no-console
-      console.log('form value ===', formInput, replies);
       updateReply(formInput)
         .then(() => router.push(`/reply/${object.firebaseKey}`));
     } else {
-      const payload = { ...formInput, uid: user.uid };
+      const payload = { ...formInput, uid: user.uid, blog_id: blogFbKey };
       createReply(payload).then(() => {
-        router.push('/');
+        router.push(`/reply/${blogFbKey}`);
       });
     }
   };
@@ -65,10 +59,11 @@ const ReplyForm = ({ object }) => {
 };
 
 ReplyForm.propTypes = {
+  blogFbKey: PropTypes.string.isRequired,
   object: PropTypes.shape({
     txt: PropTypes.string,
     firebaseKey: PropTypes.string,
-    reply: PropTypes.arrayOf(PropTypes.string),
+    reply: PropTypes.string,
     uid: PropTypes.string,
   }),
 };

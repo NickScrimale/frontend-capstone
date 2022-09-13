@@ -3,11 +3,11 @@ import { clientCredentials } from '../utils/client';
 
 const dbUrl = clientCredentials.databaseURL;
 
-const getReply = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/replies/${firebaseKey}.json`)
+const getReply = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/replies.json`)
     .then((response) => {
       // eslint-disable-next-line no-console
-      console.log('data ===', response.data);
+      console.warn('data ===', response.data);
       resolve(response.data);
     })
     .catch((error) => reject(error));
@@ -20,7 +20,7 @@ const deleteReply = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 const getReplyForBlog = (blogFirebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/blogs.json?orderBy="uid"&equalTo="${blogFirebaseKey}"`)
+  axios.get(`${dbUrl}/replies.json?orderBy="blog_id"&equalTo="${blogFirebaseKey}"`)
     .then((response) => resolve(Object.values(response.data)))
     .catch((error) => reject(error));
 });
@@ -36,7 +36,7 @@ const createReply = (replyObj) => new Promise((resolve, reject) => {
     .then((response) => {
       const payload = { firebaseKey: response.data.name };
       axios.patch(`${dbUrl}/replies/${response.data.name}.json`, payload)
-        .then(resolve);
+        .then((patchResponse) => resolve(patchResponse.data));
     }).catch(reject);
 });
 

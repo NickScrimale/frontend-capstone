@@ -27,7 +27,7 @@ export default function ViewBlog() {
           <hr />
         </div>
       </div>
-      <ReplyForm obj={viewReply} />
+      <ReplyForm obj={viewReply} blogFbKey={firebaseKey} />
     </>
 
   );

@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { getReply } from '../api/replyData';
+// import { getReply } from '../api/replyData';
 import ReplyCard from './ReplyCard';
 
 export default function ReplyContainer({ obj }) {
-  const [, setReplies] = useState({});
-  const getAllReplies = async () => {
-    await getReply(obj.uid).then(setReplies);
-  };
+  // const [, setReplies] = useState({});
+  // const getAllReplies = async () => {
+  //   await getReply(obj.uid).then(setReplies);
+  // };
+  console.warn(obj);
   return (
     <>
       <div className="d-flex flex-wrap">
-        <ReplyCard key={obj.firebaseKey} replyObj={obj} onUpdate={getAllReplies} />
+        <ReplyCard key={obj.firebaseKey} replyObj={obj} />
       </div>
     </>
   );
