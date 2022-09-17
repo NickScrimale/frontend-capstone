@@ -1,54 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { getBlogs } from '../api/blogData';
+import PropTypes from 'prop-types';
 
-export default function BtnFilter() {
-  // eslint-disable-next-line no-unused-vars
-  const [blogFilter, setBlogFilter] = useState(null);
-  const [blogs, setBlogs] = useState([]);
+export default function BtnFilter({ filterBlogs, blogs }) {
   const [typeFilter, setTypeFilter] = useState([]);
 
   const getBlogTypes = () => {
-    const types = [];
-    blogs.map((blog) => (
-      types.push(blog.type)
-    ));
-    setTypeFilter(types);
-    // console.warn(types);
+    const types = blogs.map((blog) => blog.type);
+    const noDupes = [...new Set(types)];
+    setTypeFilter(noDupes);
   };
 
   useEffect(() => {
-    getBlogs().then(setBlogs).then(getBlogTypes());
-  }, []);
-
-  // eslint-disable-next-line consistent-return
-  // const renderBlogs = () => {
-  //   if (blogs.length) {
-  //     return blogs.map((blog) => {
-  //       console.warn(blog.blogType);
-  //       console.warn(blogFilter);
-  //       if (blogFilter === null) {
-  //         return (
-  //           <BlogCard
-  //             key={blog.firebaseKey}
-  //             blogObj={blog}
-  //             onUpdate={getBlogs}
-  //           />
-  //         );
-  //       }
-  //       if (blog.blogType === blogFilter) {
-  //         return (
-  //           <BlogCard
-  //             key={blog.firebaseKey}
-  //             blogObj={blog}
-  //             onUpdate={getBlogs}
-  //           />
-  //         );
-  //       }
-  //       return null;
-  //     });
-  //   }
-  // };
+    getBlogTypes();
+  }, [blogs]);
 
   return (
     <>
@@ -60,7 +25,7 @@ export default function BtnFilter() {
                 key={tF}
                 type="button"
                 className="btn btn-secondary filterButton"
-                onClick={() => setBlogFilter(tF)}
+                onClick={() => filterBlogs(tF)}
               >
                 {tF}
               </button>
@@ -69,8 +34,8 @@ export default function BtnFilter() {
         <button
           type="button"
           className="btn btn-secondary filterButton"
-          style={{ 'background-color': '#84190B' }}
-          onClick={() => setBlogFilter(null)}
+          style={{ backgroundColor: '#84190B' }}
+          onClick={() => filterBlogs('All')}
         >
           All
         </button>
@@ -78,3 +43,14 @@ export default function BtnFilter() {
     </>
   );
 }
+
+BtnFilter.propTypes = {
+  blogs: PropTypes.arrayOf(PropTypes.shape({
+    firebaseKey: PropTypes.string,
+    title: PropTypes.string,
+    txt: PropTypes.string,
+    link: PropTypes.string,
+    type: PropTypes.string,
+  })).isRequired,
+  filterBlogs: PropTypes.func.isRequired,
+};

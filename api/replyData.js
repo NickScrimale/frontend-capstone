@@ -7,7 +7,6 @@ const getReply = () => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/replies.json`)
     .then((response) => {
       // eslint-disable-next-line no-console
-      console.warn('data ===', response.data);
       resolve(response.data);
     })
     .catch((error) => reject(error));

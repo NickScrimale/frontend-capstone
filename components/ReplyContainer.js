@@ -8,7 +8,6 @@ export default function ReplyContainer({ obj }) {
   // const getAllReplies = async () => {
   //   await getReply(obj.uid).then(setReplies);
   // };
-  console.warn(obj);
   return (
     <>
       <div className="d-flex flex-wrap">

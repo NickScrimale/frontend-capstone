@@ -29,6 +29,7 @@ function BlogCard({ blogObj, onUpdate }) {
           DELETE
         </Button>
       </Card.Body>
+      <Card.Footer>{blogObj.type}</Card.Footer>
     </Card>
   );
 }
@@ -39,6 +40,7 @@ BlogCard.propTypes = {
     title: PropTypes.string,
     txt: PropTypes.string,
     link: PropTypes.string,
+    type: PropTypes.string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
