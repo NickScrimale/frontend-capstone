@@ -13,7 +13,7 @@ function Signin() {
       }}
     >
       <h1>Hi there!</h1>
-      <p>Click the button below to login!</p>
+      <p>Click below to become a little pogchamp</p>
       <button type="button" className="btn btn-primary btn-lg copy-btn" onClick={signIn}>
         Sign In
       </button>

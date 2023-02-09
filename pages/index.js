@@ -31,6 +31,7 @@ function Home() {
 
   return (
     <div className="text-center my-4">
+      <title>Pog Blog</title>
       <Link href="/blogs/new" passHref>
         <Button variant="info">Post A Blog</Button>
       </Link>
